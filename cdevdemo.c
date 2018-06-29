@@ -27,7 +27,8 @@ void times_up(unsigned long arg)
 	char *str = (char*)arg;
 	printk(KERN_NOTICE "%s %d\n",str,++i);
 	
-	tm.expires = jiffies+msecs_to_jiffies(100);
+//	tm.expires = jiffies+msecs_to_jiffies(100);
+	tm.expires = jiffies+25*(HZ/250);		//定时100毫秒
 	add_timer(&tm);			//重新计时
 }
 
@@ -95,7 +96,8 @@ int cdevdemo_init(void)
 	
 	tm.function = times_up;		//指定定时时间到后的回调函数
 	tm.data = (unsigned long)"This is a test dev";		//回调函数的参数
-	tm.expires = jiffies+msecs_to_jiffies(100);			//定时时间
+//	tm.expires = jiffies+msecs_to_jiffies(100);			//定时时间
+	tm.expires = jiffies+25*(HZ/250);				//定时100毫秒
 	add_timer(&tm);			//注册定时器
 	
 	return 0;
